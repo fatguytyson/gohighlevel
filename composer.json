@@ -1,0 +1,33 @@
+{
+    "name": "fatguy/gohighlevel",
+    "description": "GoHighLevel API v1.1.15",
+    "keywords": ["Go High Level", "GoHighLevel", "API", "REST"],
+    "type": "library",
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.3",
+        "symfony/serializer": "^5.3",
+        "symfony/options-resolver": "^5.3",
+        "symfony/property-access": "^5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tyson Green",
+            "email": "tyson@fatguyconsulting.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "FGC\\GoHighLevel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\FGC\\GoHighLevel\\": "tests/"
+        }
+    }
+}
