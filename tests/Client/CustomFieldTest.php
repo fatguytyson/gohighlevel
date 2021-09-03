@@ -53,7 +53,7 @@ class CustomFieldTest extends TestCase
         $this->stack->append(new Response(
             200,
             ['Content-Type' => 'application/json'],
-            '{"customField":{"id":"4TpylkzgT6MX2c25ORQU","name":"Are you Interested in credit repair services? It will increase your chances of getting a loan.","fieldKey":"contact.are_you_interested_in_credit_repair_services_it_will_increase_your_chances_of_getting_a_loan","placeholder":"","dataType":"SINGLE_OPTIONS","position":0,"picklistOptions":["Yes Help me raise my score!","No I\'m happy with my credit"]}}'
+            '{"id":"4TpylkzgT6MX2c25ORQU","name":"Are you Interested in credit repair services? It will increase your chances of getting a loan.","fieldKey":"contact.are_you_interested_in_credit_repair_services_it_will_increase_your_chances_of_getting_a_loan","placeholder":"","dataType":"SINGLE_OPTIONS","position":0,"picklistOptions":["Yes Help me raise my score!","No I\'m happy with my credit"]}'
         ));
         $result = $this->test->create([
             'name' => 'Are you Interested in credit repair services? It will increase your chances of getting a loan.',

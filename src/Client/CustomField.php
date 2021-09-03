@@ -38,14 +38,12 @@ class CustomField extends Root
      */
     public function create(array $options = []): CustomFieldObject
     {
-        $wrapper = $this->send(
+        return $this->send(
             'post',
             self::ROOT_URI,
             [RequestOptions::JSON => Create::resolve($options)],
-            Wrapper::class
+            CustomFieldObject::class
         );
-
-        return $wrapper->customField;
     }
 
     public function fetch(string $id): CustomFieldObject
