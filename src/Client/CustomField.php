@@ -11,16 +11,16 @@
 
 namespace FGC\GoHighLevel\Client;
 
-use FGC\GoHighLevel\Client;
 use FGC\GoHighLevel\Object\CustomField\CustomField as CustomFieldObject;
 use FGC\GoHighLevel\Object\CustomField\CustomFields;
 use FGC\GoHighLevel\Object\CustomField\Wrapper;
 use FGC\GoHighLevel\OptionResolver\CustomField\Create;
+use FGC\GoHighLevel\Root;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
-class CustomField extends Client
+class CustomField extends Root
 {
     protected const ROOT_URI = '/v1/custom-fields/';
     public function get(): CustomFields

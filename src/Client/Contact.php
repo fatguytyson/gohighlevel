@@ -11,18 +11,18 @@
 
 namespace FGC\GoHighLevel\Client;
 
-use FGC\GoHighLevel\Client;
 use FGC\GoHighLevel\Object\Contact\Contact as ContactObject;
 use FGC\GoHighLevel\Object\Contact\Contacts;
 use FGC\GoHighLevel\Object\Contact\Wrapper;
 use FGC\GoHighLevel\OptionResolver\Contact\Create;
 use FGC\GoHighLevel\OptionResolver\Contact\Get;
 use FGC\GoHighLevel\OptionResolver\Contact\Lookup;
+use FGC\GoHighLevel\Root;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
-class Contact extends Client
+class Contact extends Root
 {
     protected const ROOT_URI = '/v1/contacts/';
     /**
