@@ -23,7 +23,13 @@ class Contact {
     /** @var string|null **/
     public ?string $firstName;
     /** @var string|null **/
+    public ?string $firstNameLowerCase;
+    /** @var string|null **/
     public ?string $lastName;
+    /** @var string|null **/
+    public ?string $lastNameLowerCase;
+    /** @var string|null **/
+    public ?string $fullNameLowerCase;
     /** @var string|null **/
     public ?string $assignedTo;
     /** @var boolean **/
@@ -48,6 +54,8 @@ class Contact {
     public ?string $state;
     /** @var string|null **/
     public ?string $email;
+    /** @var string|null **/
+    public ?string $emailLowerCase;
     /** @var string|null **/
     public ?string $phone;
     /** @var string|null **/
