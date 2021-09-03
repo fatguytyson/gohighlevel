@@ -33,6 +33,13 @@ class ClientTest extends TestCase
 
     public function testContact()
     {
-        self::assertInstanceOf(Client\Contact::class, $this->test->contact());
+        self::assertInstanceOf(Client\Contact::class, $first = $this->test->contact());
+        self::assertSame($first, $this->test->contact());
+    }
+
+    public function testCusttomFiled()
+    {
+        self::assertInstanceOf(Client\CustomField::class, $first = $this->test->customField());
+        self::assertSame($first, $this->test->customField());
     }
 }

@@ -12,6 +12,7 @@
 namespace FGC\GoHighLevel;
 
 use FGC\GoHighLevel\Client\Contact;
+use FGC\GoHighLevel\Client\CustomField;
 use FGC\GoHighLevel\Exception\RestException;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
@@ -28,12 +29,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class Client
 {
-    /** @var string */
     protected string $apiKey;
-    /** @var ClientInterface */
     protected ClientInterface $client;
-    /** @var SerializerInterface */
     protected SerializerInterface $serializer;
+    private Contact $contact;
+    private CustomField $customField;
 
     public function __construct(string $apiKey, ClientInterface $client = null, SerializerInterface $serializer = null)
     {
@@ -55,7 +55,12 @@ class Client
 
     public function contact(): Contact
     {
-        return new Contact($this->apiKey, $this->client, $this->serializer);
+        return $this->contact = $this->contact ?? new Contact($this->apiKey, $this->client, $this->serializer);
+    }
+
+    public function customField(): CustomField
+    {
+        return $this->customField = $this->customField ?? new CustomField($this->apiKey, $this->client, $this->serializer);
     }
 
     /**
