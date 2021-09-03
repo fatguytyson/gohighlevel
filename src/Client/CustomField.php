@@ -72,7 +72,7 @@ class CustomField extends Root
             ]
         );
         if (isset($options['picklistOptions'])) {
-            $options['options'] = $options['picklistOptions'];
+            $options[$options['dataType'] === 'FILE_UPLOAD' ? 'acceptedFormat' : 'options'] = $options['picklistOptions'];
             unset($options['picklistOptions']);
         }
         $wrapper = $this->send(

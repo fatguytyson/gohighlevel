@@ -45,6 +45,9 @@ class Create
             self::$resolver->define('name')
                 ->allowedTypes('string')
                 ->info('John Deo');
+            self::$resolver->define('companyName')
+                ->allowedTypes('string')
+                ->info('Company Name');
             self::$resolver->define('email')
                 ->allowedTypes('string', 'null')
                 ->default(null)
