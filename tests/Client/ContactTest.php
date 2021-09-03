@@ -121,7 +121,7 @@ class ContactTest extends TestCase
     public function testDelete()
     {
         $this->expectNotToPerformAssertions();
-        $this->stack->append(new Response(200, ['Content-Type' => 'text/plain']));
+        $this->stack->append(new Response(200, ['Content-Type' => 'text/plain'], 'OK'));
         $this->test->delete('Smya1Z92jOPtwIFqfqIi');
     }
 }

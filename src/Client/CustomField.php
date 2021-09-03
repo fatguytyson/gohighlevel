@@ -48,14 +48,12 @@ class CustomField extends Root
 
     public function fetch(string $id): CustomFieldObject
     {
-        $wrapper = $this->send(
+        return $this->send(
             'get',
             sprintf('%s%s', self::ROOT_URI, $id),
             [],
-            Wrapper::class
+            CustomFieldObject::class
         );
-
-        return $wrapper->customField;
     }
 
     public function update(CustomFieldObject $customField): CustomFieldObject
@@ -75,14 +73,12 @@ class CustomField extends Root
             $options[$options['dataType'] === 'FILE_UPLOAD' ? 'acceptedFormat' : 'options'] = $options['picklistOptions'];
             unset($options['picklistOptions']);
         }
-        $wrapper = $this->send(
+        return $this->send(
             'put',
             sprintf('%s%s', self::ROOT_URI, $customField->id),
             [RequestOptions::JSON => Create::resolve($options)],
-            Wrapper::class
+            CustomFieldObject::class
         );
-
-        return $wrapper->customField;
     }
 
     public function delete(string $id): void
