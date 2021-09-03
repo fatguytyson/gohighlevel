@@ -115,7 +115,7 @@ class Create
                     return $value;
                 })
                 ->info('This will allow array of file format.');
-            self::$resolver->define('isMulitpalFile')
+            self::$resolver->define('isMultipalFile')
                 ->allowedTypes('boolean')
                 ->info('it allow true or false. If you want to allow multipal files pass true');
             self::$resolver->define('maxNumberOfFiles')
