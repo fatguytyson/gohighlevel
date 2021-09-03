@@ -31,9 +31,9 @@ class Client
     /** @var string */
     protected string $apiKey;
     /** @var ClientInterface */
-    protected $client;
+    protected ClientInterface $client;
     /** @var SerializerInterface */
-    protected $serializer;
+    protected SerializerInterface $serializer;
 
     public function __construct(string $apiKey, ClientInterface $client = null, SerializerInterface $serializer = null)
     {
@@ -53,7 +53,7 @@ class Client
             ]);
     }
 
-    public function Contact(): Contact
+    public function contact(): Contact
     {
         return new Contact($this->apiKey, $this->client, $this->serializer);
     }

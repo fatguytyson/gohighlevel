@@ -12,36 +12,31 @@
 namespace FGC\GoHighLevel\Client;
 
 use FGC\GoHighLevel\Client;
-use FGC\GoHighLevel\Object\Contact\Contact as ContactObject;
-use FGC\GoHighLevel\Object\Contact\Contacts;
-use FGC\GoHighLevel\Object\Contact\Wrapper;
-use FGC\GoHighLevel\OptionResolver\Contact\Create;
-use FGC\GoHighLevel\OptionResolver\Contact\Get;
-use FGC\GoHighLevel\OptionResolver\Contact\Lookup;
+use FGC\GoHighLevel\Object\CustomField\CustomField as CustomFieldObject;
+use FGC\GoHighLevel\Object\CustomField\CustomFields;
+use FGC\GoHighLevel\Object\CustomField\Wrapper;
+use FGC\GoHighLevel\OptionResolver\CustomField\Create;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
-class Contact extends Client
+class CustomField extends Client
 {
-    protected const ROOT_URI = '/v1/contacts/';
-    /**
-     * @see Get
-     */
-    public function get(array $options = []): Contacts
+    protected const ROOT_URI = '/v1/custom-fields/';
+    public function get(): CustomFields
     {
         return $this->send(
             'get',
             self::ROOT_URI,
-            [RequestOptions::QUERY => Get::resolve($options)],
-            Contacts::class
+            [],
+            CustomFields::class
         );
     }
 
     /**
      * @see Create
      */
-    public function create(array $options = []): ContactObject
+    public function create(array $options = []): CustomFieldObject
     {
         $wrapper = $this->send(
             'post',
@@ -50,23 +45,10 @@ class Contact extends Client
             Wrapper::class
         );
 
-        return $wrapper->contact;
+        return $wrapper->customField;
     }
 
-    /**
-     * @see Lookup
-     */
-    public function lookup(array $options = []): Contacts
-    {
-        return $this->send(
-            'get',
-            sprintf('%slookup', self::ROOT_URI),
-            [RequestOptions::QUERY => Lookup::resolve($options)],
-            Contacts::class
-        );
-    }
-
-    public function fetch(string $id): ContactObject
+    public function fetch(string $id): CustomFieldObject
     {
         $wrapper = $this->send(
             'get',
@@ -75,34 +57,34 @@ class Contact extends Client
             Wrapper::class
         );
 
-        return $wrapper->contact;
+        return $wrapper->customField;
     }
 
-    public function update(ContactObject $contact): ContactObject
+    public function update(CustomFieldObject $customField): CustomFieldObject
     {
         $options = $this->serializer->normalize(
-            $contact,
+            $customField,
             'json',
             [
-                AbstractNormalizer::ATTRIBUTES => Create::getDefined(),
+                AbstractNormalizer::ATTRIBUTES => array_merge(
+                    Create::getDefined(),
+                    ['picklistOptions']
+                ),
                 AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
             ]
         );
-        if (isset($options['customField'])) {
-            $customField = [];
-            foreach ($options['customField'] as ['id' => $id, 'value' => $value]) {
-                $customField[$id] = $value;
-            }
-            $options['customField'] = $customField;
+        if (isset($options['picklistOptions'])) {
+            $options['options'] = $options['picklistOptions'];
+            unset($options['picklistOptions']);
         }
         $wrapper = $this->send(
             'put',
-            sprintf('%s%s', self::ROOT_URI, $contact->id),
+            sprintf('%s%s', self::ROOT_URI, $customField->id),
             [RequestOptions::JSON => Create::resolve($options)],
             Wrapper::class
         );
 
-        return $wrapper->contact;
+        return $wrapper->customField;
     }
 
     public function delete(string $id): void

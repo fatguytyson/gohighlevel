@@ -56,6 +56,6 @@ class Contact {
     public ?string $postalCode;
     /** @var int **/
     public int $lastActivity;
-    /** @var CustomField[] **/
+    /** @var CustomFieldValue[] **/
     public array $customField;
 }

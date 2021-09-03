@@ -11,7 +11,7 @@
 
 namespace FGC\GoHighLevel\Object\Contact;
 
-class CustomField
+class CustomFieldValue
 {
     /** @var string */
     public string $id;
