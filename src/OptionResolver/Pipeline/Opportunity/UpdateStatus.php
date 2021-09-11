@@ -9,30 +9,29 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace FGC\GoHighLevel;
+namespace FGC\GoHighLevel\OptionResolver\Pipeline\Opportunity;
 
-use FGC\GoHighLevel\Client\Contact;
-use FGC\GoHighLevel\Client\CustomField;
-use FGC\GoHighLevel\Client\Pipeline;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Client extends Root
+class UpdateStatus
 {
-    private Contact $contact;
-    private CustomField $customField;
-    private Pipeline $pipeline;
+    /** @var OptionsResolver */
+    private static OptionsResolver $resolver;
 
-    public function contact(): Contact
+    static function resolve(array $options = []): array
     {
-        return $this->contact = $this->contact ?? new Contact($this->apiKey, $this->client, $this->serializer);
-    }
+        if (!isset(self::$resolver)) {
+            self::$resolver = new OptionsResolver();
+            self::$resolver->define('stageId')
+                ->allowedTypes('string')
+                ->required()
+                ->info('Example: 7915dedc-8f18-44d5-8bc3-77c04e994a10');
+            self::$resolver->define('status')
+                ->allowedValues('open', 'won', 'lost', 'abandoned')
+                ->required()
+                ->info('Example: open');
+        }
 
-    public function customField(): CustomField
-    {
-        return $this->customField = $this->customField ?? new CustomField($this->apiKey, $this->client, $this->serializer);
-    }
-
-    public function pipeline(): Pipeline
-    {
-        return $this->pipeline = $this->pipeline ?? new Pipeline($this->apiKey, $this->client, $this->serializer);
+        return self::$resolver->resolve($options);
     }
 }

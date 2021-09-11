@@ -14,6 +14,7 @@ namespace Tests\Client;
 use FGC\GoHighLevel\Client\Contact;
 use FGC\GoHighLevel\Object\Contact\Contact as ContactObject;
 use FGC\GoHighLevel\Object\Contact\Contacts;
+use FGC\GoHighLevel\Object\Contact\CustomFieldValue;
 use FGC\GoHighLevel\Object\Meta;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
@@ -23,6 +24,11 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \FGC\GoHighLevel\Client\Contact
+ * @covers \FGC\GoHighLevel\Object\Contact\Contacts
+ * @covers \FGC\GoHighLevel\Object\Contact\Contact
+ * @covers \FGC\GoHighLevel\Object\Contact\Wrapper
+ * @covers \FGC\GoHighLevel\Object\Meta
+ * @covers \FGC\GoHighLevel\Object\Contact\CustomFieldValue
  */
 class ContactTest extends TestCase
 {
@@ -106,16 +112,22 @@ class ContactTest extends TestCase
         $this->stack->append(new Response(
             200,
             ['Content-Type' => 'application/json'],
-            '{"contact":{"id":"Smya1Z92jOPtwIFqfqIi","locationId":"IfbKIgadZ0OF7opUv3XZ","contactName":"robuam bocancea","firstName":"robuam","lastName":"bocancea","assignedTo":"KTp4Pmymgd92oFO6pxNc","dnd":false,"type":"lead","source":"ring central","tags":["alvin","consultsrequested"],"dateAdded":"2021-09-01T00:03:49.291Z","dateUpdated":"2021-09-01T00:17:10.474Z","city":null,"address1":null,"dateOfBirth":null,"state":null,"email":"new@email.com","phone":"+11234567890","companyName":null,"postalCode":null,"lastActivity":1630455433995,"customField":[]}}'
+            '{"contact":{"id":"Smya1Z92jOPtwIFqfqIi","locationId":"IfbKIgadZ0OF7opUv3XZ","contactName":"robuam bocancea","firstName":"robuam","lastName":"bocancea","assignedTo":"KTp4Pmymgd92oFO6pxNc","dnd":false,"type":"lead","source":"ring central","tags":["alvin","consultsrequested"],"dateAdded":"2021-09-01T00:03:49.291Z","dateUpdated":"2021-09-01T00:17:10.474Z","city":null,"address1":null,"dateOfBirth":null,"state":null,"email":"new@email.com","phone":"+11234567890","companyName":null,"postalCode":null,"lastActivity":1630455433995,"customField":[{"id":"chQVHGrWlrRB7VA251gv","value":"Funding Director"}]}}'
         ));
         $contact = $this->test->fetch('Smya1Z92jOPtwIFqfqIi');
         self::assertNull($contact->email);
+        self::assertEmpty($contact->customField);
         $contact->email = 'new@email.com';
+        $customFieldValue = new CustomFieldValue();
+        $customFieldValue->id = 'chQVHGrWlrRB7VA251gv';
+        $customFieldValue->value = 'Funding Director';
+        $contact->customField[] = $customFieldValue;
         $result = $this->test->update($contact);
         self::assertInstanceOf(ContactObject::class, $result);
         self::assertSame($contact->id, $result->id);
         self::assertSame($contact->email, $result->email);
         self::assertSame($contact->phone, $result->phone);
+        self::assertEquals($contact->customField, $result->customField);
     }
 
     public function testDelete()

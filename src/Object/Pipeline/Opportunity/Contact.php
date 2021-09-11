@@ -9,30 +9,19 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace FGC\GoHighLevel;
+namespace FGC\GoHighLevel\Object\Pipeline\Opportunity;
 
-use FGC\GoHighLevel\Client\Contact;
-use FGC\GoHighLevel\Client\CustomField;
-use FGC\GoHighLevel\Client\Pipeline;
-
-class Client extends Root
-{
-    private Contact $contact;
-    private CustomField $customField;
-    private Pipeline $pipeline;
-
-    public function contact(): Contact
-    {
-        return $this->contact = $this->contact ?? new Contact($this->apiKey, $this->client, $this->serializer);
-    }
-
-    public function customField(): CustomField
-    {
-        return $this->customField = $this->customField ?? new CustomField($this->apiKey, $this->client, $this->serializer);
-    }
-
-    public function pipeline(): Pipeline
-    {
-        return $this->pipeline = $this->pipeline ?? new Pipeline($this->apiKey, $this->client, $this->serializer);
-    }
+class Contact {
+    /** @var string **/
+    public string $id;
+    /** @var string|null **/
+    public ?string $name = null;
+    /** @var string|null **/
+    public ?string $companyName = null;
+    /** @var string|null **/
+    public ?string $email = null;
+    /** @var string|null **/
+    public ?string $phone = null;
+    /** @var string[] **/
+    public array $tags = [];
 }

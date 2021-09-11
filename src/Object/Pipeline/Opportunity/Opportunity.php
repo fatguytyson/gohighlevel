@@ -9,30 +9,36 @@
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace FGC\GoHighLevel;
+namespace FGC\GoHighLevel\Object\Pipeline\Opportunity;
 
-use FGC\GoHighLevel\Client\Contact;
-use FGC\GoHighLevel\Client\CustomField;
-use FGC\GoHighLevel\Client\Pipeline;
+use DateTimeImmutable;
 
-class Client extends Root
+class Opportunity
 {
-    private Contact $contact;
-    private CustomField $customField;
-    private Pipeline $pipeline;
-
-    public function contact(): Contact
-    {
-        return $this->contact = $this->contact ?? new Contact($this->apiKey, $this->client, $this->serializer);
-    }
-
-    public function customField(): CustomField
-    {
-        return $this->customField = $this->customField ?? new CustomField($this->apiKey, $this->client, $this->serializer);
-    }
-
-    public function pipeline(): Pipeline
-    {
-        return $this->pipeline = $this->pipeline ?? new Pipeline($this->apiKey, $this->client, $this->serializer);
-    }
+    /** @var string */
+    public string $id;
+    /** @var string */
+    public string $name;
+    /** @var float */
+    public float $monetaryValue;
+    /** @var string */
+    public string $pipelineId;
+    /** @var string */
+    public string $pipelineStageId;
+    /** @var string */
+    public ?string $pipelineStageUId = null;
+    /** @var string */
+    public string $assignedTo;
+    /** @var string */
+    public string $status;
+    /** @var string */
+    public string $source;
+    /** @var DateTimeImmutable */
+    public DateTimeImmutable $lastStatusChangeAt;
+    /** @var DateTimeImmutable */
+    public DateTimeImmutable $createdAt;
+    /** @var DateTimeImmutable */
+    public DateTimeImmutable $updatedAt;
+    /** @var Contact */
+    public Contact $contact;
 }

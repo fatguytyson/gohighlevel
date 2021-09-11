@@ -37,9 +37,21 @@ class ClientTest extends TestCase
         self::assertSame($first, $this->test->contact());
     }
 
-    public function testCusttomFiled()
+    public function testCustomFiled()
     {
         self::assertInstanceOf(Client\CustomField::class, $first = $this->test->customField());
         self::assertSame($first, $this->test->customField());
+    }
+
+    public function testPipeline()
+    {
+        self::assertInstanceOf(Client\Pipeline::class, $first = $this->test->pipeline());
+        self::assertSame($first, $this->test->pipeline());
+    }
+
+    public function testPipelineOpportunity()
+    {
+        self::assertInstanceOf(Client\Pipeline\Opportunity::class, $first = $this->test->pipeline()->opportunity());
+        self::assertSame($first, $this->test->pipeline()->opportunity());
     }
 }

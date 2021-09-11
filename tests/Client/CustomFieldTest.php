@@ -22,6 +22,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \FGC\GoHighLevel\Client\CustomField
+ * @covers \FGC\GoHighLevel\Object\CustomField\CustomFields
+ * @covers \FGC\GoHighLevel\Object\CustomField\CustomField
  */
 class CustomFieldTest extends TestCase
 {
